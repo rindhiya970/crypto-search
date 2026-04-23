@@ -1,64 +1,57 @@
 .crypto-card {
   display: block;
-  background: #1a1a2e;
-  border: 1px solid #2a2a3d;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 1rem;
   text-decoration: none;
   color: inherit;
   transition: transform 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
 }
-
 .crypto-card:hover {
   transform: translateY(-3px);
-  border-color: #f0b90b;
+  border-color: var(--accent);
 }
-
 .card-header {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 0.75rem;
 }
-
 .coin-name {
   font-weight: 600;
   font-size: 0.95rem;
   margin: 0;
-  color: #fff;
+  color: var(--text);
 }
-
 .coin-symbol {
   font-size: 0.75rem;
-  color: #888;
+  color: var(--text-muted);
   margin: 0;
 }
-
 .card-body {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
 }
-
 .coin-price {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--text);
   margin: 0;
 }
-
 .coin-change {
   font-size: 0.85rem;
   font-weight: 600;
   margin: 0;
 }
-
-.positive { color: #00c853; }
-.negative { color: #ff1744; }
-
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
 .coin-market-cap {
   font-size: 0.75rem;
-  color: #666;
+  color: var(--text-sub);
   margin: 0;
 }
