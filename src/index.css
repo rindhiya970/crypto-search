@@ -1,5 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
+/* ── Dark theme (default) ── */
+:root, [data-theme="dark"] {
+  --bg:        #0a0a14;
+  --bg-card:   #1a1a2e;
+  --bg-nav:    #0f0f1a;
+  --border:    #2a2a3d;
+  --border-sub:#1e1e2e;
+  --text:      #e0e0e0;
+  --text-muted:#888;
+  --text-sub:  #555;
+  --accent:    #f0b90b;
+  --accent-hover: #d4a009;
+  --positive:  #00c853;
+  --negative:  #ff1744;
+}
+
+/* ── Light theme ── */
+[data-theme="light"] {
+  --bg:        #f4f5f7;
+  --bg-card:   #ffffff;
+  --bg-nav:    #ffffff;
+  --border:    #e0e0e0;
+  --border-sub:#ececec;
+  --text:      #111827;
+  --text-muted:#6b7280;
+  --text-sub:  #9ca3af;
+  --accent:    #d4a009;
+  --accent-hover: #b8860b;
+  --positive:  #16a34a;
+  --negative:  #dc2626;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -7,12 +39,24 @@
 }
 
 body {
-  background-color: #0a0a14;
-  color: #e0e0e0;
+  background-color: var(--bg);
+  color: var(--text);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   min-height: 100vh;
+  transition: background-color 0.25s, color 0.25s;
 }
 
 a { color: inherit; }
-
 img { display: block; }
+
+/* Price flash animations */
+@keyframes flash-green {
+  0%   { background: rgba(0, 200, 83, 0.25); }
+  100% { background: transparent; }
+}
+@keyframes flash-red {
+  0%   { background: rgba(255, 23, 68, 0.25); }
+  100% { background: transparent; }
+}
+.flash-up   { animation: flash-green 1s ease-out; }
+.flash-down { animation: flash-red   1s ease-out; }
