@@ -48,10 +48,10 @@ export const getCoinDetails = async (id) => {
   return data;
 };
 
-// Get historical price chart data (7 days)
-export const getCoinChart = async (id, days = 7) => {
+// Get historical price chart data
+export const getCoinChart = async (id, days = 7, currency = "usd") => {
   const { data } = await axios.get(`${BASE_URL}/coins/${id}/market_chart`, {
-    params: { vs_currency: "usd", days },
+    params: { vs_currency: currency, days },
   });
   return data.prices; // [[timestamp, price], ...]
 };
