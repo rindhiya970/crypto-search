@@ -1,5 +1,5 @@
 .details-page {
-  max-width: 800px;
+  max-width: 860px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
@@ -11,29 +11,28 @@
   display: inline-block;
   margin-bottom: 1.5rem;
 }
-
 .back-link:hover { text-decoration: underline; }
 
+/* Header */
 .details-header {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
-
 .details-header h1 {
   font-size: 1.8rem;
   margin: 0;
   color: #fff;
 }
-
 .symbol {
   color: #888;
   font-size: 1rem;
   font-weight: 400;
 }
-
 .rank {
+  display: inline-block;
+  margin-top: 0.3rem;
   background: #1a1a2e;
   border: 1px solid #2a2a3d;
   border-radius: 6px;
@@ -42,68 +41,130 @@
   color: #f0b90b;
 }
 
+/* Currency tabs */
+.currency-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+.currency-tabs button {
+  padding: 0.35rem 1rem;
+  border-radius: 20px;
+  border: 1px solid #2a2a3d;
+  background: transparent;
+  color: #aaa;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.currency-tabs button:hover {
+  border-color: #f0b90b;
+  color: #f0b90b;
+}
+.currency-tabs button.active {
+  background: #f0b90b;
+  border-color: #f0b90b;
+  color: #000;
+}
+
+/* Price row */
 .price-row {
   display: flex;
   align-items: baseline;
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
-
 .price {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 700;
   color: #fff;
 }
-
-.change {
-  font-size: 1rem;
-  font-weight: 600;
-}
-
+.change { font-size: 1rem; font-weight: 600; }
 .positive { color: #00c853; }
 .negative { color: #ff1744; }
 
+/* Multi-currency grid */
+.currency-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+@media (max-width: 500px) {
+  .currency-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.currency-item {
+  background: #1a1a2e;
+  border: 1px solid #2a2a3d;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.currency-item:hover { border-color: #f0b90b44; }
+.currency-item.active { border-color: #f0b90b; }
+.currency-label {
+  display: block;
+  font-size: 0.7rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.3rem;
+}
+.currency-value {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  word-break: break-all;
+}
+
+/* Stats grid */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  gap: 0.75rem;
   margin-bottom: 2rem;
 }
-
-@media (min-width: 500px) {
+@media (min-width: 600px) {
   .stats-grid { grid-template-columns: repeat(4, 1fr); }
 }
-
 .stat {
   background: #1a1a2e;
   border: 1px solid #2a2a3d;
   border-radius: 10px;
   padding: 0.85rem;
 }
-
 .stat-label {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: #888;
   margin: 0 0 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
-
 .stat-value {
-  font-size: 0.95rem;
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 700;
   color: #fff;
   margin: 0;
+  word-break: break-all;
+}
+.stat-sub {
+  font-size: 0.7rem;
+  color: #555;
+  margin: 0.2rem 0 0;
 }
 
-.chart-wrapper {
-  margin-bottom: 2rem;
-}
-
+/* Chart */
+.chart-wrapper { margin-bottom: 2rem; }
 .chart-range-btns {
   display: flex;
   gap: 0.5rem;
   margin-bottom: 0.75rem;
+  flex-wrap: wrap;
 }
-
 .chart-range-btns button {
   padding: 0.3rem 0.8rem;
   border-radius: 6px;
@@ -114,7 +175,6 @@
   font-size: 0.85rem;
   transition: all 0.2s;
 }
-
 .chart-range-btns button.active,
 .chart-range-btns button:hover {
   background: #f0b90b;
@@ -122,20 +182,38 @@
   border-color: #f0b90b;
   font-weight: 700;
 }
+.chart-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 3rem;
+  color: #888;
+  font-size: 0.9rem;
+}
+.chart-spinner,
+.detail-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #2a2a3d;
+  border-top-color: #f0b90b;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
 
+/* Description */
 .description {
   background: #1a1a2e;
   border: 1px solid #2a2a3d;
   border-radius: 10px;
   padding: 1.25rem;
 }
-
 .description h2 {
   font-size: 1rem;
   color: #f0b90b;
   margin: 0 0 0.75rem;
 }
-
 .description p {
   color: #aaa;
   font-size: 0.9rem;
@@ -143,10 +221,12 @@
   margin: 0;
 }
 
+/* Status */
 .status-msg {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem;
   color: #888;
-  padding: 3rem;
 }
-
 .status-msg.error { color: #ff1744; }
