@@ -1,0 +1,123 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #0f0f1a;
+  border-bottom: 1px solid #2a2a3d;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.navbar-brand {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #f0b90b;
+  text-decoration: none;
+}
+
+/* Desktop links */
+.navbar-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.navbar-links a,
+.mobile-menu a {
+  color: #ccc;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+}
+
+.navbar-links a:hover,
+.mobile-menu a:hover {
+  color: #f0b90b;
+}
+
+/* Active link indicator */
+.navbar-links a.active,
+.mobile-menu a.active {
+  color: #f0b90b;
+  border-bottom: 2px solid #f0b90b;
+}
+
+/* Hamburger button — hidden on desktop */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.hamburger span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: #ccc;
+  border-radius: 2px;
+  transition: all 0.25s;
+}
+
+/* Animate to X when open */
+.hamburger.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Mobile dropdown */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  padding: 0.5rem 0;
+  border-top: 1px solid #2a2a3d;
+  gap: 0.25rem;
+}
+
+.mobile-menu a {
+  padding: 0.65rem 0.5rem;
+  border-radius: 6px;
+  border-bottom: none !important;
+}
+
+.mobile-menu a.active {
+  background: #1a1a2e;
+  color: #f0b90b;
+  border-bottom: none !important;
+}
+
+.mobile-menu a:hover {
+  background: #1a1a2e;
+}
+
+/* Show hamburger + mobile menu on small screens */
+@media (max-width: 600px) {
+  .navbar-links {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .mobile-menu {
+    display: flex;
+  }
+}
