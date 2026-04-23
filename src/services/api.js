@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "https://api.coingecko.com/api/v3";
+const BASE_URL = "/api";
 
 // Fetch top coins by market cap
 export const getTopCoins = async (limit = 20) => {
@@ -38,4 +38,24 @@ export const getCoinChart = async (id, days = 7) => {
     params: { vs_currency: "usd", days },
   });
   return data.prices; // [[timestamp, price], ...]
+};
+
+// Get global market stats (total market cap, BTC dominance, etc.)
+export const getGlobalStats = async () => {
+  const { data } = await axios.get(`${BASE_URL}/global`);
+  return data.data;
+};
+
+// Fetch coins with sort + pagination support
+export const getTopCoinsPaged = async ({ limit = 20, page = 1, order = "market_cap_desc" } = {}) => {
+  const { data } = await axios.get(`${BASE_URL}/coins/markets`, {
+    params: {
+      vs_currency: "usd",
+      order,
+      per_page: limit,
+      page,
+      sparkline: false,
+    },
+  });
+  return data;
 };
