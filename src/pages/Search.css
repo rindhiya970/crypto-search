@@ -1,5 +1,5 @@
 .search-page {
-  max-width: 700px;
+  max-width: 750px;
   margin: 0 auto;
   padding: 2rem 1rem;
 }
@@ -10,47 +10,154 @@
   margin-bottom: 1.5rem;
 }
 
+/* Loading spinner */
+.search-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.search-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #2a2a3d;
+  border-top-color: #f0b90b;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Results count */
+.results-count {
+  font-size: 0.8rem;
+  color: #555;
+  margin: 1.25rem 0 0.5rem;
+}
+
+/* Results list */
 .search-results {
   list-style: none;
   padding: 0;
-  margin-top: 1.5rem;
+  margin-top: 0.25rem;
 }
 
 .search-results li {
-  border-bottom: 1px solid #1e1e2e;
+  border-bottom: 1px solid #1a1a2e;
 }
 
 .result-item {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1rem;
   padding: 0.85rem 0.5rem;
-  text-decoration: none;
-  color: #fff;
-  transition: background 0.15s;
   border-radius: 8px;
+  transition: background 0.15s;
 }
 
 .result-item:hover {
   background: #1a1a2e;
 }
 
-.result-name {
-  font-weight: 600;
+/* Left section */
+.result-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   flex: 1;
+  min-width: 0;
+}
+
+.result-left img {
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.result-name {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .result-symbol {
+  display: block;
+  font-size: 0.75rem;
   color: #888;
-  font-size: 0.85rem;
+  margin-top: 1px;
+}
+
+/* Middle meta */
+.result-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+  min-width: 110px;
 }
 
 .result-rank {
+  font-size: 0.75rem;
   color: #f0b90b;
-  font-size: 0.8rem;
   font-weight: 600;
 }
 
+.result-price-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+}
+
+.result-price {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.result-change {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.result-no-price {
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.positive { color: #00c853; }
+.negative { color: #ff1744; }
+
+/* More Info button */
+.more-info-btn {
+  flex-shrink: 0;
+  padding: 0.4rem 0.9rem;
+  border-radius: 7px;
+  background: transparent;
+  border: 1px solid #f0b90b;
+  color: #f0b90b;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.more-info-btn:hover {
+  background: #f0b90b;
+  color: #000;
+}
+
+/* Status messages */
 .status-msg {
   text-align: center;
   color: #888;
