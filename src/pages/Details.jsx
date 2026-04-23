@@ -5,10 +5,10 @@ import { getCoinDetails } from "../services/api";
 import "./Details.css";
 
 const CURRENCIES = [
-  { key: "usd", label: "USD", symbol: "$",  decimals: 2  },
-  { key: "eur", label: "EUR", symbol: "€",  decimals: 2  },
-  { key: "btc", label: "BTC", symbol: "₿",  decimals: 8  },
-  { key: "eth", label: "ETH", symbol: "Ξ",  decimals: 6  },
+  { key: "usd", label: "USD", symbol: "$", decimals: 2 },
+  { key: "eur", label: "EUR", symbol: "€", decimals: 2 },
+  { key: "btc", label: "BTC", symbol: "₿", decimals: 8 },
+  { key: "eth", label: "ETH", symbol: "Ξ", decimals: 6 },
 ];
 
 function fmt(value, decimals) {
@@ -17,6 +17,47 @@ function fmt(value, decimals) {
     minimumFractionDigits: decimals,
     maximumFractionDigits: decimals,
   });
+}
+
+function CryptoConverter({ coin, currencies }) {
+  const [amount, setAmount] = useState("1");
+  const md = coin.market_data;
+  const usdPrice = md.current_price.usd;
+  const numAmount = parseFloat(amount) || 0;
+
+  return (
+    <div className="converter">
+      <h2 className="converter-title">Crypto Converter</h2>
+      <div className="converter-input-row">
+        <input
+          type="number"
+          min="0"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          className="converter-input"
+          placeholder="Amount"
+        />
+        <span className="converter-coin-label">
+          <img src={coin.image.thumb} alt={coin.name} width={20} height={20} />
+          {coin.symbol.toUpperCase()}
+        </span>
+      </div>
+      <div className="converter-results">
+        {currencies.map((c) => {
+          const rate = md.current_price[c.key];
+          const converted = numAmount * rate;
+          return (
+            <div key={c.key} className="converter-result-item">
+              <span className="converter-currency">{c.label}</span>
+              <span className="converter-value">
+                {c.symbol}{fmt(converted, c.decimals)}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 export default function Details() {
@@ -150,6 +191,9 @@ export default function Details() {
 
       {/* Chart — currency-aware */}
       <ChartComponent coinId={id} currency={activeCurrency} />
+
+      {/* Crypto Converter */}
+      <CryptoConverter coin={coin} currencies={CURRENCIES} />
 
       {/* Description */}
       {coin.description?.en && (
