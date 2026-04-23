@@ -1,0 +1,64 @@
+.crypto-card {
+  display: block;
+  background: #1a1a2e;
+  border: 1px solid #2a2a3d;
+  border-radius: 12px;
+  padding: 1rem;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.crypto-card:hover {
+  transform: translateY(-3px);
+  border-color: #f0b90b;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.coin-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin: 0;
+  color: #fff;
+}
+
+.coin-symbol {
+  font-size: 0.75rem;
+  color: #888;
+  margin: 0;
+}
+
+.card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.coin-price {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.coin-change {
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.positive { color: #00c853; }
+.negative { color: #ff1744; }
+
+.coin-market-cap {
+  font-size: 0.75rem;
+  color: #666;
+  margin: 0;
+}
