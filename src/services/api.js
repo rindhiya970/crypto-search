@@ -24,6 +24,22 @@ export const searchCoins = async (query) => {
   return data.coins;
 };
 
+// Get market prices for a list of coin ids (used to enrich search results)
+export const getCoinPrices = async (ids) => {
+  const { data } = await axios.get(`${BASE_URL}/coins/markets`, {
+    params: {
+      vs_currency: "usd",
+      ids: ids.join(","),
+      order: "market_cap_desc",
+      per_page: ids.length,
+      page: 1,
+      sparkline: false,
+    },
+  });
+  // Return a map of id -> market data for easy lookup
+  return Object.fromEntries(data.map((c) => [c.id, c]));
+};
+
 // Get detailed info for a single coin
 export const getCoinDetails = async (id) => {
   const { data } = await axios.get(`${BASE_URL}/coins/${id}`, {
