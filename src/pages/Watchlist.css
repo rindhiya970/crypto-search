@@ -1,0 +1,107 @@
+.watchlist-page {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+.watchlist-page h1 {
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+}
+.watchlist-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-muted);
+}
+.watchlist-empty p { margin-bottom: 0.5rem; }
+.watchlist-home-link {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #000;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.watchlist-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.watchlist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  gap: 1rem;
+  transition: border-color 0.2s;
+}
+.watchlist-item:hover { border-color: var(--accent); }
+.watchlist-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  flex: 1;
+  min-width: 0;
+}
+.watchlist-left img { border-radius: 50%; flex-shrink: 0; }
+.wl-name {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.wl-symbol {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.watchlist-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+.wl-price {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text);
+}
+.wl-change { font-size: 0.8rem; font-weight: 600; }
+.wl-na { color: var(--text-sub); font-size: 0.85rem; }
+.positive { color: var(--positive); }
+.negative { color: var(--negative); }
+.more-info-btn {
+  padding: 0.35rem 0.8rem;
+  border-radius: 7px;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+.more-info-btn:hover { background: var(--accent); color: #000; }
+.wl-remove {
+  background: none;
+  border: none;
+  color: var(--text-sub);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  transition: color 0.2s, background 0.2s;
+}
+.wl-remove:hover { color: var(--negative); background: rgba(255,23,68,0.1); }
+.status-msg { text-align: center; color: var(--text-muted); padding: 2rem; }
