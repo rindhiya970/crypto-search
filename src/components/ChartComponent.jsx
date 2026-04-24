@@ -27,7 +27,14 @@ export default function ChartComponent({ coinId, currency = "usd" }) {
   const [prices, setPrices] = useState([]);
   const [days, setDays] = useState(7);
   const [loading, setLoading] = useState(true);
+  const [activeCurrency, setActiveCurrency] = useState(currency);
   const { theme } = useTheme();
+
+  // Sync prop → state but debounce to avoid rapid-fire requests on tab switch
+  useEffect(() => {
+    const t = setTimeout(() => setActiveCurrency(currency), 300);
+    return () => clearTimeout(t);
+  }, [currency]);
 
   // Read CSS variables so chart adapts to dark/light theme
   const cssVar = (name) =>
@@ -38,10 +45,10 @@ export default function ChartComponent({ coinId, currency = "usd" }) {
 
   useEffect(() => {
     setLoading(true);
-    getCoinChart(coinId, days, currency)
+    getCoinChart(coinId, days, activeCurrency)
       .then(setPrices)
       .finally(() => setLoading(false));
-  }, [coinId, days, currency]);
+  }, [coinId, days, activeCurrency]);
 
   if (loading) return (
     <div className="chart-loading">
@@ -54,7 +61,7 @@ export default function ChartComponent({ coinId, currency = "usd" }) {
     new Date(ts).toLocaleDateString("en-US", { month: "short", day: "numeric" })
   );
   const data = prices.map(([, price]) => price);
-  const symbol = CURRENCY_SYMBOLS[currency] ?? "";
+  const symbol = CURRENCY_SYMBOLS[activeCurrency] ?? "";
 
   const chartData = {
     labels,
