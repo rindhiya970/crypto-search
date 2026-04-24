@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import ChartComponent from "../components/ChartComponent";
-import { getCoinDetails } from "../services/api";
+import { getCoinDetails, getCoinNews } from "../services/api";
+import { useFavorites } from "../context/FavoritesContext";
 import "./Details.css";
 
 const CURRENCIES = [
@@ -65,15 +66,30 @@ export default function Details() {
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState(null);
   const [activeCurrency, setActiveCurrency] = useState("usd");
+  const [news, setNews]         = useState([]);
+  const { isFavorite, toggle }  = useFavorites();
 
-  useEffect(() => {
+  const loadCoin = useCallback((silent = false) => {
+    if (!silent) setLoading(true);
     getCoinDetails(id)
       .then((data) => {
         setCoin(data);
         document.title = `${data.name} (${data.symbol.toUpperCase()}) — CryptoSearch`;
       })
       .catch(() => setError("Could not load coin details."))
-      .finally(() => setLoading(false));
+      .finally(() => { if (!silent) setLoading(false); });
+  }, [id]);
+
+  // Initial load + real-time polling every 30s
+  useEffect(() => {
+    loadCoin(false);
+    const interval = setInterval(() => loadCoin(true), 30000);
+    return () => clearInterval(interval);
+  }, [loadCoin]);
+
+  // Fetch news via CoinGecko search trending + status updates
+  useEffect(() => {
+    getCoinNews(id).then(setNews).catch(() => {});
   }, [id]);
 
   if (loading) return <div className="status-msg"><div className="detail-spinner" /></div>;
@@ -94,9 +110,9 @@ export default function Details() {
   const atl       = md.atl[activeCurrency];
   const atlDate   = md.atl_date[activeCurrency];
   const circSupply = md.circulating_supply;
-  const totalSupply = md.total_supply;
   const maxSupply   = md.max_supply;
   const isPositive  = change24h >= 0;
+  const fav = isFavorite(id);
 
   return (
     <div className="details-page">
@@ -111,6 +127,13 @@ export default function Details() {
             <span className="rank">Rank #{coin.market_cap_rank}</span>
           )}
         </div>
+        <button
+          className={`detail-fav-btn ${fav ? "fav-active" : ""}`}
+          onClick={() => toggle({ id: coin.id, name: coin.name, symbol: coin.symbol, image: coin.image.small })}
+          aria-label={fav ? "Remove from watchlist" : "Add to watchlist"}
+        >
+          {fav ? "★ Watching" : "☆ Watch"}
+        </button>
       </div>
 
       {/* Currency switcher */}
@@ -203,6 +226,23 @@ export default function Details() {
               __html: coin.description.en.split(". ").slice(0, 4).join(". ") + ".",
             }}
           />
+        </div>
+      )}
+
+      {/* News Section */}
+      {news.length > 0 && (
+        <div className="news-section">
+          <h2 className="news-title">📰 Latest News</h2>
+          <ul className="news-list">
+            {news.map((item, i) => (
+              <li key={i} className="news-item">
+                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                  <span className="news-headline">{item.title}</span>
+                  <span className="news-meta">{item.source} · {new Date(item.publishedAt).toLocaleDateString()}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
