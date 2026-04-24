@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -10,6 +10,7 @@ import {
   Filler,
 } from "chart.js";
 import { getCoinChart } from "../services/api";
+import { useTheme } from "../context/ThemeContext";
 
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip, Filler);
 
@@ -26,6 +27,14 @@ export default function ChartComponent({ coinId, currency = "usd" }) {
   const [prices, setPrices] = useState([]);
   const [days, setDays] = useState(7);
   const [loading, setLoading] = useState(true);
+  const { theme } = useTheme();
+
+  // Read CSS variables so chart adapts to dark/light theme
+  const cssVar = (name) =>
+    getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+
+  const gridColor = cssVar("--border");
+  const tickColor = cssVar("--text-muted");
 
   useEffect(() => {
     setLoading(true);
@@ -71,13 +80,16 @@ export default function ChartComponent({ coinId, currency = "usd" }) {
       },
     },
     scales: {
-      x: { ticks: { color: "#888", maxTicksLimit: 8 }, grid: { color: "#1a1a2e" } },
+      x: {
+        ticks: { color: tickColor, maxTicksLimit: 8 },
+        grid: { color: gridColor },
+      },
       y: {
         ticks: {
-          color: "#888",
+          color: tickColor,
           callback: (v) => `${symbol}${Number(v).toLocaleString()}`,
         },
-        grid: { color: "#1a1a2e" },
+        grid: { color: gridColor },
       },
     },
   };
