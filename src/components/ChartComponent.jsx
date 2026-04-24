@@ -60,8 +60,10 @@ export default function ChartComponent({ coinId, currency = "usd" }) {
     labels,
     datasets: [{
       data,
-      borderColor: "#f0b90b",
-      backgroundColor: "rgba(240,185,11,0.08)",
+      borderColor: cssVar("--accent") || "#f0b90b",
+      backgroundColor: theme === "dark"
+        ? "rgba(240,185,11,0.08)"
+        : "rgba(212,160,9,0.12)",
       borderWidth: 2,
       pointRadius: 0,
       fill: true,
