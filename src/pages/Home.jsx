@@ -146,7 +146,10 @@ export default function Home() {
             ← Prev
           </button>
           <span className="page-indicator">Page {page}</span>
-          <button onClick={() => setPage((p) => p + 1)}>
+          <button
+            onClick={() => setPage((p) => p + 1)}
+            disabled={coins.length < PAGE_SIZE}
+          >
             Next →
           </button>
         </div>
