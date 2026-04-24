@@ -15,6 +15,7 @@ export default function Navbar() {
       <div className="navbar-links">
         <NavLink to="/" end className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
         <NavLink to="/search" className={({ isActive }) => isActive ? "active" : ""}>Search</NavLink>
+        <NavLink to="/watchlist" className={({ isActive }) => isActive ? "active" : ""}>⭐ Watchlist</NavLink>
       </div>
 
       <div className="navbar-right">
@@ -39,6 +40,7 @@ export default function Navbar() {
         <div className="mobile-menu">
           <NavLink to="/" end onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? "active" : ""}>Home</NavLink>
           <NavLink to="/search" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? "active" : ""}>Search</NavLink>
+          <NavLink to="/watchlist" onClick={() => setMenuOpen(false)} className={({ isActive }) => isActive ? "active" : ""}>⭐ Watchlist</NavLink>
         </div>
       )}
     </nav>
