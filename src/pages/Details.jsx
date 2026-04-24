@@ -80,10 +80,10 @@ export default function Details() {
       .finally(() => { if (!silent) setLoading(false); });
   }, [id]);
 
-  // Initial load + real-time polling every 30s
+  // Initial load + real-time polling every 60s (rate-limit friendly)
   useEffect(() => {
     loadCoin(false);
-    const interval = setInterval(() => loadCoin(true), 30000);
+    const interval = setInterval(() => loadCoin(true), 60000);
     return () => clearInterval(interval);
   }, [loadCoin]);
 
