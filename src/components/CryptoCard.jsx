@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import { useFavorites } from "../context/FavoritesContext";
 import "./CryptoCard.css";
 
 export default function CryptoCard({ coin }) {
@@ -7,6 +8,8 @@ export default function CryptoCard({ coin }) {
   const isPositive  = priceChange >= 0;
   const prevPrice   = useRef(coin.current_price);
   const [flash, setFlash] = useState("");
+  const { isFavorite, toggle } = useFavorites();
+  const fav = isFavorite(coin.id);
 
   useEffect(() => {
     if (coin.current_price !== prevPrice.current) {
@@ -17,14 +20,26 @@ export default function CryptoCard({ coin }) {
     }
   }, [coin.current_price]);
 
+  const handleFav = (e) => {
+    e.preventDefault(); // don't navigate
+    toggle({ id: coin.id, name: coin.name, symbol: coin.symbol, image: coin.image });
+  };
+
   return (
     <Link to={`/details/${coin.id}`} className={`crypto-card ${flash}`}>
       <div className="card-header">
         <img src={coin.image} alt={coin.name} width={36} height={36} />
-        <div>
+        <div className="card-title">
           <p className="coin-name">{coin.name}</p>
           <p className="coin-symbol">{coin.symbol.toUpperCase()}</p>
         </div>
+        <button
+          className={`fav-btn ${fav ? "fav-active" : ""}`}
+          onClick={handleFav}
+          aria-label={fav ? "Remove from watchlist" : "Add to watchlist"}
+        >
+          {fav ? "★" : "☆"}
+        </button>
       </div>
       <div className="card-body">
         <p className="coin-price">${coin.current_price.toLocaleString()}</p>
