@@ -75,3 +75,20 @@ export const getTopCoinsPaged = async ({ limit = 20, page = 1, order = "market_c
   });
   return data;
 };
+
+// Get news/status updates for a coin
+export const getCoinNews = async (id) => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/coins/${id}/status_updates`, {
+      params: { per_page: 5 },
+    });
+    return (data.status_updates || []).map((item) => ({
+      title: item.description.split("\n")[0].slice(0, 120),
+      url: item.project.public_notice_url || `https://www.coingecko.com/en/coins/${id}`,
+      source: item.project.name || "CoinGecko",
+      publishedAt: item.created_at,
+    }));
+  } catch {
+    return [];
+  }
+};
