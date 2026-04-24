@@ -22,7 +22,6 @@ function fmt(value, decimals) {
 function CryptoConverter({ coin, currencies }) {
   const [amount, setAmount] = useState("1");
   const md = coin.market_data;
-  const usdPrice = md.current_price.usd;
   const numAmount = parseFloat(amount) || 0;
 
   return (
