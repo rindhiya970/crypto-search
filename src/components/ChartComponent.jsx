@@ -32,7 +32,7 @@ export default function ChartComponent({ coinId, currency = "usd" }) {
 
   // Sync prop → state but debounce to avoid rapid-fire requests on tab switch
   useEffect(() => {
-    const t = setTimeout(() => setActiveCurrency(currency), 300);
+    const t = setTimeout(() => setActiveCurrency(currency), 800);
     return () => clearTimeout(t);
   }, [currency]);
 
