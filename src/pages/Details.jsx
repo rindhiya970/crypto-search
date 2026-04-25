@@ -80,10 +80,12 @@ export default function Details() {
       .finally(() => { if (!silent) setLoading(false); });
   }, [id]);
 
-  // Initial load + real-time polling every 60s (rate-limit friendly)
+  // Initial load + real-time polling every 2 min, only when tab is visible
   useEffect(() => {
     loadCoin(false);
-    const interval = setInterval(() => loadCoin(true), 60000);
+    const interval = setInterval(() => {
+      if (document.visibilityState === "visible") loadCoin(true);
+    }, 120000);
     return () => clearInterval(interval);
   }, [loadCoin]);
 
