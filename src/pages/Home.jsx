@@ -15,7 +15,7 @@ const SORT_OPTIONS = [
 ];
 
 const PAGE_SIZE = 20;
-const REFRESH_INTERVAL = 30000; // 30 seconds
+const REFRESH_INTERVAL = 120000; // 2 minutes — respects free tier (30 calls/min)
 
 export default function Home() {
   const [coins, setCoins]       = useState([]);
@@ -41,15 +41,19 @@ export default function Home() {
       .finally(() => setLoading(false));
   }, [page, sort]);
 
-  // Initial load + periodic refresh every 30s
+  // Initial load + refresh only when tab is visible
   useEffect(() => {
     document.title = "CryptoSearch — Home";
     fetchCoins(true);
-    const interval = setInterval(() => fetchCoins(false), REFRESH_INTERVAL);
+
+    const interval = setInterval(() => {
+      if (document.visibilityState === "visible") fetchCoins(false);
+    }, REFRESH_INTERVAL);
+
     return () => clearInterval(interval);
   }, [fetchCoins]);
 
-  // Fetch global market stats once on mount
+  // Fetch global market stats — once, cached for 5 min
   useEffect(() => {
     getGlobalStats().then(setGlobalStats).catch(() => {});
   }, []);
