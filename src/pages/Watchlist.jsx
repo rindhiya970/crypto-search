@@ -10,7 +10,7 @@ export default function Watchlist() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    document.title = "CryptoSearch — Watchlist";
+    document.title = "Crypto Online Market — Watchlist";
     if (!favorites.length) return;
     setLoading(true);
     getCoinPrices(favorites.map((f) => f.id))
