@@ -9,7 +9,7 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <Link to="/" className="navbar-brand">🪙 CryptoSearch</Link>
+      <Link to="/" className="navbar-brand">🪙 Crypto Online Market</Link>
 
       {/* Desktop links */}
       <div className="navbar-links">
