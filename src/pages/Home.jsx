@@ -43,7 +43,7 @@ export default function Home() {
 
   // Initial load + refresh only when tab is visible
   useEffect(() => {
-    document.title = "CryptoSearch — Home";
+    document.title = "Crypto Online Market — Home";
     fetchCoins(true);
 
     const interval = setInterval(() => {
