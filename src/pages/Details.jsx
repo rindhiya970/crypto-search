@@ -74,7 +74,7 @@ export default function Details() {
     getCoinDetails(id)
       .then((data) => {
         setCoin(data);
-        document.title = `${data.name} (${data.symbol.toUpperCase()}) — CryptoSearch`;
+        document.title = `${data.name} (${data.symbol.toUpperCase()}) — Crypto Online Market`;
       })
       .catch(() => setError("Could not load coin details."))
       .finally(() => { if (!silent) setLoading(false); });
