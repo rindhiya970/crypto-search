@@ -17,7 +17,7 @@ function setCached(key, data) {
 
 // ── Serial request queue (one at a time, 1.2s apart) ──────────────────────
 let queue = Promise.resolve();
-const MIN_INTERVAL = 1200; // ms between requests — stays under free tier limit
+const MIN_INTERVAL = 1500; // ms between requests
 let lastCallTime = 0;
 
 function enqueue(fn) {
@@ -40,9 +40,20 @@ async function throttledGet(url, params = {}) {
     const hit = getCached(key);
     if (hit) return hit;
 
-    const { data } = await axios.get(url, { params });
-    setCached(key, data);
-    return data;
+    try {
+      const { data } = await axios.get(url, { params });
+      setCached(key, data);
+      return data;
+    } catch (err) {
+      if (err.response?.status === 429) {
+        // Back off for 15s then retry once
+        await new Promise((r) => setTimeout(r, 15000));
+        const { data } = await axios.get(url, { params });
+        setCached(key, data);
+        return data;
+      }
+      throw err;
+    }
   });
 }
 
