@@ -17,7 +17,7 @@ export default function Search() {
   const debounceRef = useRef(null);
 
   useEffect(() => {
-    document.title = "CryptoSearch — Search";
+    document.title = "Crypto Online Market — Search";
     const q = searchParams.get("q");
     if (q) runSearch(q);
   }, []);
